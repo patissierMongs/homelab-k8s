@@ -377,7 +377,10 @@ async def process_file(file_path: str, original_name: str, source_path: str = ""
     ]
 
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(_executor, qdrant.upsert, COLLECTION_NAME, points)
+    UPSERT_BATCH = 256
+    for batch_start in range(0, len(points), UPSERT_BATCH):
+        batch = points[batch_start:batch_start + UPSERT_BATCH]
+        await loop.run_in_executor(_executor, qdrant.upsert, COLLECTION_NAME, batch)
     log.info(f"Stored {len(points)} vectors for {original_name}")
 
     _job_update(sp, status=JobStatus.DONE, progress="완료",

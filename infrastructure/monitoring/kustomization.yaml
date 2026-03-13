@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - prometheus.yaml
+  - alertmanager.yaml
+  - grafana.yaml
+  - grafana-secret.enc.yaml
+  - node-exporter.yaml
+  - mosquitto.yaml
+  - mqtt-exporter.yaml
+  - aiops-bridge.yaml
+  - dashboards

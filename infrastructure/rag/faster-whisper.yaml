@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: whisper-models
+  namespace: rag
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faster-whisper
+  namespace: rag
+  labels:
+    app: faster-whisper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: faster-whisper
+  template:
+    metadata:
+      labels:
+        app: faster-whisper
+    spec:
+      containers:
+        - name: faster-whisper
+          image: fedirz/faster-whisper-server:latest-cuda
+          ports:
+            - containerPort: 8000
+          env:
+            - name: WHISPER__MODEL
+              value: Systran/faster-whisper-large-v3-turbo
+            - name: WHISPER__DEVICE
+              value: cuda
+            - name: WHISPER__COMPUTE_TYPE
+              value: float16
+            - name: WHISPER__DEFAULT_LANGUAGE
+              value: ko
+          resources:
+            limits:
+              nvidia.com/gpu: "1"
+          volumeMounts:
+            - name: models
+              mountPath: /root/.cache/huggingface
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: whisper-models
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: faster-whisper
+  namespace: rag
+spec:
+  selector:
+    app: faster-whisper
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP

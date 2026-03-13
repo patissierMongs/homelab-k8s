@@ -1,0 +1,4 @@
+*.agekey
+keys.txt
+__pycache__/
+*.pyc

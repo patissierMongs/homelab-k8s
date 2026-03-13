@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-data-nfs
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadOnlyMany
+  nfs:
+    server: 100.78.204.76
+    path: /var/lib/docker/volumes/mynext_nextcloud_data/_data/data
+  mountOptions:
+    - ro
+    - soft
+    - timeo=30
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data-nfs
+  namespace: rag
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 100Gi
+  volumeName: nextcloud-data-nfs
+  storageClassName: ""

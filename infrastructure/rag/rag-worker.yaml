@@ -1,0 +1,89 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-worker
+  namespace: rag
+  labels:
+    app: rag-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-worker
+  template:
+    metadata:
+      labels:
+        app: rag-worker
+    spec:
+      containers:
+        - name: rag-worker
+          image: rag-worker:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: WHISPER_URL
+              value: "http://faster-whisper.rag.svc.cluster.local:8000"
+            - name: OLLAMA_URL
+              value: "http://ollama.llm.svc.cluster.local:11434"
+            - name: QDRANT_URL
+              value: "http://qdrant.rag.svc.cluster.local:6333"
+            - name: EMBED_MODEL
+              value: "qwen3-embedding:8b"
+            - name: PRIORITY_PROXY_URL
+              value: "http://192.168.50.108:11435"
+            - name: NC_DATA_DIR
+              value: "/nc-data"
+            - name: COLLECTION_NAME
+              value: "media_transcripts"
+            - name: CHUNK_SIZE
+              value: "500"
+            - name: CHUNK_OVERLAP
+              value: "50"
+            - name: NC_URL
+              value: "https://cloud.reimu-chan.mooo.com"
+            - name: NC_USER
+              value: "upicaso"
+            - name: NC_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: nc-credentials
+                  key: NC_PASS
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /nc-data
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 60
+            timeoutSeconds: 15
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 5
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data-nfs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-worker
+  namespace: rag
+spec:
+  selector:
+    app: rag-worker
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: NodePort

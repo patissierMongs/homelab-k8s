@@ -1,0 +1,61 @@
+name: Validate Manifests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          pip install yamllint
+          curl -sL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz | tar xz -C /usr/local/bin
+
+      - name: yamllint
+        run: |
+          yamllint -d '{extends: relaxed, rules: {line-length: {max: 200}}}' \
+            infrastructure/ clusters/
+
+      - name: kubeconform
+        run: |
+          find infrastructure/ -name '*.yaml' ! -name 'kustomization.yaml' ! -name '*.enc.yaml' | \
+            xargs -I{} kubeconform -strict -ignore-missing-schemas -summary {}
+
+      - name: Validate dashboard JSON
+        run: |
+          for f in infrastructure/monitoring/dashboards/*.json; do
+            echo "Checking $f ..."
+            python3 -c "
+          import json, sys
+          with open('$f') as fh:
+              d = json.load(fh)
+          errors = []
+          if 'panels' not in d:
+              errors.append('missing panels')
+          if 'title' not in d:
+              errors.append('missing title')
+          if 'schemaVersion' not in d:
+              errors.append('missing schemaVersion')
+          if errors:
+              print(f'FAIL: {', '.join(errors)}')
+              sys.exit(1)
+          print('OK')
+          "
+          done
+
+      - name: Check SOPS encryption
+        run: |
+          fail=0
+          for f in $(find . -name '*.enc.yaml'); do
+            if ! grep -q '^sops:' "$f" && ! grep -q '"sops":' "$f"; then
+              echo "ERROR: $f is not encrypted!"
+              fail=1
+            fi
+          done
+          exit $fail

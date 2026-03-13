@@ -1,0 +1,139 @@
+{
+  "uid": "infra-topology",
+  "title": "Infrastructure Topology",
+  "tags": ["topology", "infrastructure"],
+  "timezone": "browser",
+  "refresh": "30s",
+  "time": {"from": "now-5m", "to": "now"},
+  "panels": [
+    {
+      "id": 10,
+      "title": "",
+      "type": "text",
+      "gridPos": {"h": 2, "w": 24, "x": 0, "y": 0},
+      "options": {
+        "mode": "markdown",
+        "content": "# Infrastructure Topology\nAuto-discovered services across **myarch** (Docker) and **myubuntu** (K8s + Host). Refreshes every 30s."
+      }
+    },
+    {
+      "id": 20,
+      "title": "Total Nodes",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 0, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["total_nodes"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "Nodes", "color": {"mode": "fixed", "fixedColor": "dark-blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "dark-blue", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 21,
+      "title": "Connections",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 4, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["total_edges"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "Edges", "color": {"mode": "fixed", "fixedColor": "dark-orange"}, "thresholds": {"mode": "absolute", "steps": [{"color": "dark-orange", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 22,
+      "title": "Docker (myarch)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 8, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["docker"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "Docker", "color": {"mode": "fixed", "fixedColor": "#2496ED"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#2496ED", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 23,
+      "title": "K8s (myubuntu)",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 12, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["k8s"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "K8s", "color": {"mode": "fixed", "fixedColor": "#326CE5"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#326CE5", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 24,
+      "title": "Host Services",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 16, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["host"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "Host", "color": {"mode": "fixed", "fixedColor": "#4CAF50"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#4CAF50", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 25,
+      "title": "External",
+      "type": "stat",
+      "gridPos": {"h": 4, "w": 4, "x": 20, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["external"]}}}],
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
+      "fieldConfig": {"defaults": {"displayName": "External", "color": {"mode": "fixed", "fixedColor": "#FF9800"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#FF9800", "value": null}]}}, "overrides": []}
+    },
+    {
+      "id": 1,
+      "title": "Service Topology",
+      "type": "nodeGraph",
+      "gridPos": {"h": 22, "w": 24, "x": 0, "y": 6},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [
+        {"refId": "nodes", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []},
+        {"refId": "edges", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}
+      ],
+      "options": {
+        "nodes": {
+          "mainStatUnit": "",
+          "arcs": [
+            {"field": "arc__docker", "color": "#2496ED"},
+            {"field": "arc__k8s", "color": "#326CE5"},
+            {"field": "arc__host", "color": "#4CAF50"},
+            {"field": "arc__external", "color": "#FF9800"}
+          ]
+        },
+        "edges": {}
+      }
+    },
+    {
+      "id": 30,
+      "title": "All Services",
+      "type": "table",
+      "gridPos": {"h": 10, "w": 24, "x": 0, "y": 28},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "organize", "options": {"excludeByName": {"arc__docker": true, "arc__k8s": true, "arc__host": true, "arc__external": true, "id": true}, "renameByName": {"title": "Service", "subtitle": "Details", "detail__category": "Category", "detail__server": "Server", "detail__status": "Status", "detail__namespace": "Namespace", "detail__ports": "Ports"}, "indexByName": {"detail__category": 0, "title": 1, "subtitle": 2, "detail__server": 3, "detail__status": 4, "detail__namespace": 5, "detail__ports": 6}}}],
+      "fieldConfig": {
+        "defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": true}},
+        "overrides": [
+          {"matcher": {"id": "byName", "options": "Category"}, "properties": [{"id": "mappings", "value": [{"type": "value", "options": {"docker": {"text": "Docker", "color": "#2496ED", "index": 0}}}, {"type": "value", "options": {"k8s": {"text": "Kubernetes", "color": "#326CE5", "index": 1}}}, {"type": "value", "options": {"host": {"text": "Host", "color": "#4CAF50", "index": 2}}}, {"type": "value", "options": {"external": {"text": "External", "color": "#FF9800", "index": 3}}}]}, {"id": "custom.cellOptions", "value": {"type": "color-text"}}]},
+          {"matcher": {"id": "byName", "options": "Status"}, "properties": [{"id": "custom.cellOptions", "value": {"type": "color-text"}}, {"id": "mappings", "value": [{"type": "regex", "options": {"pattern": "Up.*", "result": {"color": "green"}}}, {"type": "regex", "options": {"pattern": "Running.*", "result": {"color": "green"}}}, {"type": "regex", "options": {"pattern": "active.*", "result": {"color": "green"}}}, {"type": "regex", "options": {"pattern": "(Failed|Error|CrashLoop).*", "result": {"color": "red"}}}]}]}
+        ]
+      },
+      "options": {"showHeader": true, "footer": {"show": true, "countRows": true, "reducer": ["count"]}, "sortBy": [{"displayName": "Category", "desc": false}]}
+    },
+    {
+      "id": 31,
+      "title": "Connections Map",
+      "type": "table",
+      "gridPos": {"h": 10, "w": 24, "x": 0, "y": 38},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "organize", "options": {"excludeByName": {"id": true}, "renameByName": {"source": "Source", "target": "Target", "mainStat": "Connection Type"}}}],
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": true}}, "overrides": []},
+      "options": {"showHeader": true, "footer": {"show": true, "countRows": true, "reducer": ["count"]}}
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 0
+}

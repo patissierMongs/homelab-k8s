@@ -1,0 +1,224 @@
+{
+  "uid": "llmops",
+  "title": "LLMOps Monitoring",
+  "tags": ["llm", "gpu", "ollama"],
+  "timezone": "browser",
+  "refresh": "15s",
+  "time": {"from": "now-1h", "to": "now"},
+  "panels": [
+    {
+      "id": 1,
+      "title": "",
+      "type": "text",
+      "gridPos": {"h": 2, "w": 24, "x": 0, "y": 0},
+      "options": {"mode": "markdown", "content": "# LLMOps Monitoring — RTX 5090\nOllama + GPU Priority Proxy | Models, VRAM, Request Stats, System Resources"}
+    },
+    {
+      "id": 2,
+      "title": "Batch Processing",
+      "type": "stat",
+      "gridPos": {"h": 2, "w": 4, "x": 0, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/batch/status", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["enabled"]}}}],
+      "fieldConfig": {"defaults": {"mappings": [{"type": "value", "options": {"true": {"text": "ON", "color": "green", "index": 0}, "false": {"text": "OFF (Gaming)", "color": "orange", "index": 1}}}], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value"},
+      "links": [{"title": "Toggle OFF", "url": "http://192.168.50.108:9500/batch/off", "targetBlank": true}, {"title": "Toggle ON", "url": "http://192.168.50.108:9500/batch/on", "targetBlank": true}]
+    },
+    {
+      "id": 10,
+      "title": "VRAM Usage",
+      "type": "gauge",
+      "gridPos": {"h": 6, "w": 4, "x": 0, "y": 4},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_usage_pct"]}}}],
+      "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 90}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "showThresholdMarkers": true}
+    },
+    {
+      "id": 11,
+      "title": "VRAM Used",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 3, "x": 4, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_used_gb"]}}}],
+      "fieldConfig": {"defaults": {"unit": "decgbytes", "color": {"mode": "fixed", "fixedColor": "orange"}, "thresholds": {"mode": "absolute", "steps": [{"color": "orange", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 12,
+      "title": "VRAM Free",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 3, "x": 7, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_free_gb"]}}}],
+      "fieldConfig": {"defaults": {"unit": "decgbytes", "color": {"mode": "fixed", "fixedColor": "green"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 13,
+      "title": "Models Loaded",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 2, "x": 10, "y": 2},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["models_loaded"]}}}],
+      "fieldConfig": {"defaults": {"color": {"mode": "fixed", "fixedColor": "blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 14,
+      "title": "Active Users",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 2, "x": 4, "y": 5},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_count"]}}}],
+      "fieldConfig": {"defaults": {"displayName": "Active Users", "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}, {"color": "red", "value": 3}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 15,
+      "title": "User Requests",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 2, "x": 6, "y": 5},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_requests"]}}}],
+      "fieldConfig": {"defaults": {"displayName": "User Reqs", "color": {"mode": "fixed", "fixedColor": "purple"}, "thresholds": {"mode": "absolute", "steps": [{"color": "purple", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "value", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 16,
+      "title": "Batch Requests",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 2, "x": 8, "y": 5},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["batch_requests"]}}}],
+      "fieldConfig": {"defaults": {"displayName": "Batch Reqs", "color": {"mode": "fixed", "fixedColor": "blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "value", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 17,
+      "title": "Batch Paused",
+      "type": "stat",
+      "gridPos": {"h": 3, "w": 2, "x": 10, "y": 5},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["batch_paused"]}}}],
+      "fieldConfig": {"defaults": {"displayName": "Paused", "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 1}, {"color": "red", "value": 10}]}}, "overrides": []},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
+    },
+    {
+      "id": 20,
+      "title": "CPU Usage",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 2},
+      "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+      "targets": [
+        {"refId": "A", "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "legendFormat": "CPU Usage %"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "color": {"mode": "palette-classic"}, "custom": {"fillOpacity": 20, "lineWidth": 2}}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}}
+    },
+    {
+      "id": 21,
+      "title": "Memory Usage",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 10},
+      "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+      "targets": [
+        {"refId": "A", "expr": "(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024 / 1024", "legendFormat": "Used (GB)"},
+        {"refId": "B", "expr": "node_memory_MemTotal_bytes / 1024 / 1024 / 1024", "legendFormat": "Total (GB)"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "decgbytes", "min": 0, "color": {"mode": "palette-classic"}, "custom": {"fillOpacity": 10, "lineWidth": 2}}, "overrides": [{"matcher": {"id": "byName", "options": "Total (GB)"}, "properties": [{"id": "custom.lineStyle", "value": {"fill": "dash", "dash": [10, 10]}}, {"id": "custom.fillOpacity", "value": 0}]}]},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}}
+    },
+    {
+      "id": 30,
+      "title": "Loaded Models (VRAM)",
+      "type": "table",
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 8},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/models", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "organize", "options": {"renameByName": {"name": "Model", "size_vram_gb": "VRAM (GB)", "size_disk_gb": "Disk (GB)", "expires_at": "Expires"}}}],
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "filterable": true}}, "overrides": [{"matcher": {"id": "byName", "options": "VRAM (GB)"}, "properties": [{"id": "custom.cellOptions", "value": {"type": "color-text"}}, {"id": "color", "value": {"mode": "continuous-YlRd"}}]}]},
+      "options": {"showHeader": true}
+    },
+    {
+      "id": 31,
+      "title": "Available Models",
+      "type": "table",
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 14},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/available", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "organize", "options": {"renameByName": {"name": "Model", "size_gb": "Size (GB)", "family": "Family", "parameter_size": "Parameters", "quantization": "Quantization"}}}],
+      "fieldConfig": {"defaults": {"custom": {"align": "auto", "filterable": true}}, "overrides": [{"matcher": {"id": "byName", "options": "Size (GB)"}, "properties": [{"id": "custom.cellOptions", "value": {"type": "color-text"}}, {"id": "color", "value": {"mode": "continuous-blues"}}]}]},
+      "options": {"showHeader": true}
+    },
+    {
+      "id": 40,
+      "title": "Network I/O",
+      "type": "timeseries",
+      "gridPos": {"h": 6, "w": 12, "x": 12, "y": 18},
+      "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+      "targets": [
+        {"refId": "A", "expr": "rate(node_network_receive_bytes_total{device!~\"lo|veth.*|cni.*|flannel.*\"}[5m]) * 8", "legendFormat": "{{device}} RX"},
+        {"refId": "B", "expr": "rate(node_network_transmit_bytes_total{device!~\"lo|veth.*|cni.*|flannel.*\"}[5m]) * 8 * -1", "legendFormat": "{{device}} TX"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "bps", "color": {"mode": "palette-classic"}, "custom": {"fillOpacity": 15, "lineWidth": 1}}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "multi"}}
+    },
+    {
+      "id": 41,
+      "title": "Disk I/O",
+      "type": "timeseries",
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 20},
+      "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+      "targets": [
+        {"refId": "A", "expr": "rate(node_disk_read_bytes_total{device!~\"loop.*\"}[5m])", "legendFormat": "{{device}} read"},
+        {"refId": "B", "expr": "rate(node_disk_written_bytes_total{device!~\"loop.*\"}[5m]) * -1", "legendFormat": "{{device}} write"}
+      ],
+      "fieldConfig": {"defaults": {"unit": "Bps", "color": {"mode": "palette-classic"}, "custom": {"fillOpacity": 15, "lineWidth": 1}}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "multi"}}
+    },
+    {
+      "id": 50,
+      "title": "GPU Priority Proxy — Request Distribution",
+      "type": "piechart",
+      "gridPos": {"h": 6, "w": 6, "x": 12, "y": 24},
+      "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_requests", "batch_requests"]}}}],
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}, "overrides": [{"matcher": {"id": "byName", "options": "user_requests"}, "properties": [{"id": "displayName", "value": "User (LLM)"}, {"id": "color", "value": {"fixedColor": "purple", "mode": "fixed"}}]}, {"matcher": {"id": "byName", "options": "batch_requests"}, "properties": [{"id": "displayName", "value": "Batch (Embedding)"}, {"id": "color", "value": {"fixedColor": "blue", "mode": "fixed"}}]}]},
+      "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "legend": {"displayMode": "list", "placement": "bottom"}, "pieType": "donut"}
+    },
+    {
+      "id": 51,
+      "title": "System Load Average",
+      "type": "timeseries",
+      "gridPos": {"h": 6, "w": 6, "x": 18, "y": 24},
+      "datasource": {"type": "prometheus", "uid": "PBFA97CFB590B2093"},
+      "targets": [
+        {"refId": "A", "expr": "node_load1", "legendFormat": "1m"},
+        {"refId": "B", "expr": "node_load5", "legendFormat": "5m"},
+        {"refId": "C", "expr": "node_load15", "legendFormat": "15m"}
+      ],
+      "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"fillOpacity": 10, "lineWidth": 2}}, "overrides": []},
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}}
+    },
+    {
+      "id": 52,
+      "title": "Ollama Configuration",
+      "type": "text",
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 26},
+      "options": {"mode": "markdown", "content": "### RTX 5090 Configuration\n| Setting | Value | Purpose |\n|---|---|---|\n| `OLLAMA_NUM_PARALLEL` | 4 | Concurrent request handling |\n| `OLLAMA_MAX_LOADED_MODELS` | 2 | Max models in VRAM |\n| `OLLAMA_FLASH_ATTENTION` | 1 | Faster inference |\n| `OLLAMA_KV_CACHE_TYPE` | q8_0 | Memory-efficient KV cache |\n| `OLLAMA_KEEP_ALIVE` | 24h | Hot model retention |\n| **VRAM Total** | **32 GB** | RTX 5090 GDDR7 |\n\n### GPU Priority System\n- **User requests** (chat/generate): Highest priority, immediate execution\n- **Batch requests** (embedding): Yields to user, 1 concurrent max\n- **RAG worker**: Checks proxy stats before each GPU operation"}
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 0
+}

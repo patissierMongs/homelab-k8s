@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iot-simulator
+  namespace: simulation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iot-simulator
+  template:
+    metadata:
+      labels:
+        app: iot-simulator
+    spec:
+      containers:
+        - name: simulator
+          image: iot-simulator:latest
+          imagePullPolicy: Never
+          env:
+            - name: MQTT_HOST
+              value: "mosquitto.monitoring.svc.cluster.local"
+            - name: MQTT_PORT
+              value: "1883"
+            - name: PUBLISH_INTERVAL
+              value: "5"
+            - name: NUM_DEVICES
+              value: "5"
+            - name: ANOMALY_CHANCE
+              value: "0.05"

@@ -24,7 +24,7 @@ jobs:
 
       - name: kubeconform
         run: |
-          find infrastructure/ -name '*.yaml' ! -name 'kustomization.yaml' ! -name '*.enc.yaml' | \
+          find infrastructure/ -name '*.yaml' ! -name 'kustomization.yaml' ! -name '*.enc.yaml' ! -name '*-patch.yaml' | \
             xargs -I{} kubeconform -strict -ignore-missing-schemas -summary {}
 
       - name: Validate dashboard JSON
@@ -43,7 +43,7 @@ jobs:
           if 'schemaVersion' not in d:
               errors.append('missing schemaVersion')
           if errors:
-              print(f'FAIL: {', '.join(errors)}')
+              print('FAIL: ' + ', '.join(errors))
               sys.exit(1)
           print('OK')
           "

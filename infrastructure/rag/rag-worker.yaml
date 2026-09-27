@@ -32,7 +32,7 @@ spec:
             - name: EMBED_MODEL
               value: "qwen3-embedding:8b"
             - name: PRIORITY_PROXY_URL
-              value: "http://192.168.50.108:11435"
+              value: "http://192.0.2.10:11435"
             - name: NC_DATA_DIR
               value: "/nc-data"
             - name: COLLECTION_NAME
@@ -42,9 +42,13 @@ spec:
             - name: CHUNK_OVERLAP
               value: "50"
             - name: NC_URL
-              value: "https://cloud.reimu-chan.mooo.com"
+              value: "https://cloud.example.com"
             - name: NC_USER
-              value: "upicaso"
+              valueFrom:
+                secretKeyRef:
+                  name: nc-credentials
+                  key: NC_USER
+                  optional: true
             - name: NC_PASS
               valueFrom:
                 secretKeyRef:

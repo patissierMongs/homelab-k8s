@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadOnlyMany
   nfs:
-    server: 100.78.204.76
+    server: 192.0.2.20
     path: /var/lib/docker/volumes/mynext_nextcloud_data/_data/data
   mountOptions:
     - ro

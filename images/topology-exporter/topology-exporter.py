@@ -11,6 +11,9 @@ import json, subprocess, time, threading, http.server, os
 MYARCH_SSH = os.getenv("MYARCH_SSH", "myarch")
 REFRESH_INTERVAL = int(os.getenv("REFRESH_INTERVAL", "30"))
 PORT = int(os.getenv("PORT", "9500"))
+HOST_IP = os.getenv("HOST_IP", "192.0.2.10")
+HOST_ALT_IP = os.getenv("HOST_ALT_IP", "")
+PUBLIC_DOMAIN = os.getenv("PUBLIC_DOMAIN", "cloud.example.com")
 
 _topology = {"nodes": [], "edges": []}
 _lock = threading.Lock()
@@ -121,9 +124,9 @@ def detect_connections(docker_containers, k8s_pods, k8s_svcs, host_services):
                         label = env_key.lower().replace("_url", "").replace("_", " ")
                         add_edge(pod_id, target_id, label)
             # Check host service references
-            if "192.168.50.108:11435" in env_val or "192.168.50.108:11434" in env_val:
+            if f"{HOST_IP}:11435" in env_val or f"{HOST_IP}:11434" in env_val:
                 add_edge(pod_id, "host:ollama-proxy", "ollama api")
-            if "100.122.37.120" in env_val:
+            if HOST_ALT_IP and HOST_ALT_IP in env_val:
                 add_edge(pod_id, "host:ollama-proxy", env_key.lower())
 
     # Docker container connections (known patterns)
@@ -243,7 +246,7 @@ def build_topology():
     nodes.append({
         "id": "external:internet",
         "title": "Internet",
-        "subtitle": "cloud.reimu-chan.mooo.com",
+        "subtitle": PUBLIC_DOMAIN,
         "detail__category": "external",
         "arc__external": 1,
     })

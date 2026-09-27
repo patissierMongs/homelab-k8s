@@ -20,6 +20,6 @@ metadata:
   namespace: llm
 subsets:
   - addresses:
-      - ip: 192.168.50.108
+      - ip: 192.0.2.10
     ports:
       - port: 11435

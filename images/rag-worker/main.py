@@ -44,7 +44,7 @@ CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "50"))
 PRIORITY_PROXY_URL = os.getenv("PRIORITY_PROXY_URL", "")
 
 # Nextcloud WebDAV config
-NC_URL = os.getenv("NC_URL", "https://cloud.reimu-chan.mooo.com")
+NC_URL = os.getenv("NC_URL", "https://cloud.example.com")
 NC_USER = os.getenv("NC_USER", "")
 NC_PASS = os.getenv("NC_PASS", "")
 

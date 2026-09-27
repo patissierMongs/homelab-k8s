@@ -22,7 +22,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 0, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["total_nodes"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "Nodes", "color": {"mode": "fixed", "fixedColor": "dark-blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "dark-blue", "value": null}]}}, "overrides": []}
@@ -33,7 +33,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 4, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["total_edges"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "Edges", "color": {"mode": "fixed", "fixedColor": "dark-orange"}, "thresholds": {"mode": "absolute", "steps": [{"color": "dark-orange", "value": null}]}}, "overrides": []}
@@ -44,7 +44,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 8, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["docker"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "Docker", "color": {"mode": "fixed", "fixedColor": "#2496ED"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#2496ED", "value": null}]}}, "overrides": []}
@@ -55,7 +55,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 12, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["k8s"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "K8s", "color": {"mode": "fixed", "fixedColor": "#326CE5"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#326CE5", "value": null}]}}, "overrides": []}
@@ -66,7 +66,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 16, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["host"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "Host", "color": {"mode": "fixed", "fixedColor": "#4CAF50"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#4CAF50", "value": null}]}}, "overrides": []}
@@ -77,7 +77,7 @@
       "type": "stat",
       "gridPos": {"h": 4, "w": 4, "x": 20, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/summary", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["external"]}}}],
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"},
       "fieldConfig": {"defaults": {"displayName": "External", "color": {"mode": "fixed", "fixedColor": "#FF9800"}, "thresholds": {"mode": "absolute", "steps": [{"color": "#FF9800", "value": null}]}}, "overrides": []}
@@ -89,8 +89,8 @@
       "gridPos": {"h": 22, "w": 24, "x": 0, "y": 6},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
       "targets": [
-        {"refId": "nodes", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []},
-        {"refId": "edges", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}
+        {"refId": "nodes", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []},
+        {"refId": "edges", "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"}, "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}
       ],
       "options": {
         "nodes": {
@@ -111,7 +111,7 @@
       "type": "table",
       "gridPos": {"h": 10, "w": 24, "x": 0, "y": 28},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/nodes", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "organize", "options": {"excludeByName": {"arc__docker": true, "arc__k8s": true, "arc__host": true, "arc__external": true, "id": true}, "renameByName": {"title": "Service", "subtitle": "Details", "detail__category": "Category", "detail__server": "Server", "detail__status": "Status", "detail__namespace": "Namespace", "detail__ports": "Ports"}, "indexByName": {"detail__category": 0, "title": 1, "subtitle": 2, "detail__server": 3, "detail__status": 4, "detail__namespace": 5, "detail__ports": 6}}}],
       "fieldConfig": {
         "defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": true}},
@@ -128,7 +128,7 @@
       "type": "table",
       "gridPos": {"h": 10, "w": 24, "x": 0, "y": 38},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/topology/edges", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "organize", "options": {"excludeByName": {"id": true}, "renameByName": {"source": "Source", "target": "Target", "mainStat": "Connection Type"}}}],
       "fieldConfig": {"defaults": {"custom": {"align": "auto", "cellOptions": {"type": "auto"}, "filterable": true}}, "overrides": []},
       "options": {"showHeader": true, "footer": {"show": true, "countRows": true, "reducer": ["count"]}}

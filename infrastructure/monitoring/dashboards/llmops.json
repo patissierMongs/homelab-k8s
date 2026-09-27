@@ -19,11 +19,11 @@
       "type": "stat",
       "gridPos": {"h": 2, "w": 4, "x": 0, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/batch/status", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/batch/status", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["enabled"]}}}],
       "fieldConfig": {"defaults": {"mappings": [{"type": "value", "options": {"true": {"text": "ON", "color": "green", "index": 0}, "false": {"text": "OFF (Gaming)", "color": "orange", "index": 1}}}], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value"},
-      "links": [{"title": "Toggle OFF", "url": "http://192.168.50.108:9500/batch/off", "targetBlank": true}, {"title": "Toggle ON", "url": "http://192.168.50.108:9500/batch/on", "targetBlank": true}]
+      "links": [{"title": "Toggle OFF", "url": "http://192.0.2.10:9500/batch/off", "targetBlank": true}, {"title": "Toggle ON", "url": "http://192.0.2.10:9500/batch/on", "targetBlank": true}]
     },
     {
       "id": 10,
@@ -31,7 +31,7 @@
       "type": "gauge",
       "gridPos": {"h": 6, "w": 4, "x": 0, "y": 4},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_usage_pct"]}}}],
       "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 70}, {"color": "red", "value": 90}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "showThresholdMarkers": true}
@@ -42,7 +42,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 3, "x": 4, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_used_gb"]}}}],
       "fieldConfig": {"defaults": {"unit": "decgbytes", "color": {"mode": "fixed", "fixedColor": "orange"}, "thresholds": {"mode": "absolute", "steps": [{"color": "orange", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
@@ -53,7 +53,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 3, "x": 7, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["vram_free_gb"]}}}],
       "fieldConfig": {"defaults": {"unit": "decgbytes", "color": {"mode": "fixed", "fixedColor": "green"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
@@ -64,7 +64,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 2, "x": 10, "y": 2},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/gpu", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["models_loaded"]}}}],
       "fieldConfig": {"defaults": {"color": {"mode": "fixed", "fixedColor": "blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
@@ -75,7 +75,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 2, "x": 4, "y": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_count"]}}}],
       "fieldConfig": {"defaults": {"displayName": "Active Users", "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}, {"color": "red", "value": 3}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
@@ -86,7 +86,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 2, "x": 6, "y": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_requests"]}}}],
       "fieldConfig": {"defaults": {"displayName": "User Reqs", "color": {"mode": "fixed", "fixedColor": "purple"}, "thresholds": {"mode": "absolute", "steps": [{"color": "purple", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "value", "graphMode": "none", "textMode": "value_and_name"}
@@ -97,7 +97,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 2, "x": 8, "y": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["batch_requests"]}}}],
       "fieldConfig": {"defaults": {"displayName": "Batch Reqs", "color": {"mode": "fixed", "fixedColor": "blue"}, "thresholds": {"mode": "absolute", "steps": [{"color": "blue", "value": null}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "value", "graphMode": "none", "textMode": "value_and_name"}
@@ -108,7 +108,7 @@
       "type": "stat",
       "gridPos": {"h": 3, "w": 2, "x": 10, "y": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["batch_paused"]}}}],
       "fieldConfig": {"defaults": {"displayName": "Paused", "color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 1}, {"color": "red", "value": 10}]}}, "overrides": []},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "colorMode": "background", "graphMode": "none", "textMode": "value_and_name"}
@@ -144,7 +144,7 @@
       "type": "table",
       "gridPos": {"h": 6, "w": 12, "x": 0, "y": 8},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/models", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/models", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "organize", "options": {"renameByName": {"name": "Model", "size_vram_gb": "VRAM (GB)", "size_disk_gb": "Disk (GB)", "expires_at": "Expires"}}}],
       "fieldConfig": {"defaults": {"custom": {"align": "auto", "filterable": true}}, "overrides": [{"matcher": {"id": "byName", "options": "VRAM (GB)"}, "properties": [{"id": "custom.cellOptions", "value": {"type": "color-text"}}, {"id": "color", "value": {"mode": "continuous-YlRd"}}]}]},
       "options": {"showHeader": true}
@@ -155,7 +155,7 @@
       "type": "table",
       "gridPos": {"h": 6, "w": 12, "x": 0, "y": 14},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/available", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/available", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "organize", "options": {"renameByName": {"name": "Model", "size_gb": "Size (GB)", "family": "Family", "parameter_size": "Parameters", "quantization": "Quantization"}}}],
       "fieldConfig": {"defaults": {"custom": {"align": "auto", "filterable": true}}, "overrides": [{"matcher": {"id": "byName", "options": "Size (GB)"}, "properties": [{"id": "custom.cellOptions", "value": {"type": "color-text"}}, {"id": "color", "value": {"mode": "continuous-blues"}}]}]},
       "options": {"showHeader": true}
@@ -192,7 +192,7 @@
       "type": "piechart",
       "gridPos": {"h": 6, "w": 6, "x": 12, "y": 24},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "infinity"},
-      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.168.50.108:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
+      "targets": [{"refId": "A", "type": "json", "source": "url", "url": "http://192.0.2.10:9500/llm/proxy", "url_options": {"method": "GET"}, "format": "table", "parser": "backend", "columns": []}],
       "transformations": [{"id": "filterFieldsByName", "options": {"include": {"names": ["user_requests", "batch_requests"]}}}],
       "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}, "overrides": [{"matcher": {"id": "byName", "options": "user_requests"}, "properties": [{"id": "displayName", "value": "User (LLM)"}, {"id": "color", "value": {"fixedColor": "purple", "mode": "fixed"}}]}, {"matcher": {"id": "byName", "options": "batch_requests"}, "properties": [{"id": "displayName", "value": "Batch (Embedding)"}, {"id": "color", "value": {"fixedColor": "blue", "mode": "fixed"}}]}]},
       "options": {"reduceOptions": {"calcs": ["lastNotNull"]}, "legend": {"displayMode": "list", "placement": "bottom"}, "pieType": "donut"}
